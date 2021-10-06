@@ -12,7 +12,7 @@ import fi.dy.masa.tweakeroo.config.Configs;
 public abstract class MixinAbstractInventoryScreen<T extends net.minecraft.screen.ScreenHandler>
        extends net.minecraft.client.gui.screen.ingame.HandledScreen<T>
 {
-    @Shadow protected boolean drawStatusEffects;
+    // @Shadow protected boolean drawStatusEffects;
 
     public MixinAbstractInventoryScreen(
             T container,
@@ -22,7 +22,7 @@ public abstract class MixinAbstractInventoryScreen<T extends net.minecraft.scree
         super(container, playerInventory, textComponent);
     }
 
-    @Inject(method = "applyStatusEffectOffset", at = @At("RETURN"))
+    /* @Inject(method = "applyStatusEffectOffset", at = @At("RETURN"))
     private void disableStatusEffectRendering1(CallbackInfo ci)
     {
         if (Configs.Disable.DISABLE_INVENTORY_EFFECTS.getBooleanValue())
@@ -32,10 +32,10 @@ public abstract class MixinAbstractInventoryScreen<T extends net.minecraft.scree
             // the value based on whether or not the recipe book is open.
             this.drawStatusEffects = false;
         }
-    }
+    } */
 
     @Inject(method = "drawStatusEffects", at = @At("HEAD"), cancellable = true)
-    private void disableStatusEffectRendering2(MatrixStack matrixStack, CallbackInfo ci)
+    private void disableStatusEffectRendering2(MatrixStack matrixStack, int i, int j, CallbackInfo ci)
     {
         if (Configs.Disable.DISABLE_INVENTORY_EFFECTS.getBooleanValue())
         {
